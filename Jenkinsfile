@@ -6,9 +6,9 @@ pipeline {
       steps {
 		sh '''
 		 whoami
-		 aws configure set aws_access_key_id $ACCESS_KEY
-		 aws configure set aws_secret_access_key $SECRET_KEY
-		 aws configure set default.region ap-southeast-1
+		 #aws configure set aws_access_key_id $ACCESS_KEY
+		 #aws configure set aws_secret_access_key $SECRET_KEY
+		 #aws configure set default.region ap-southeast-1
 		 aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com
 		 docker build -t automation-docker .
 		 docker tag automation-docker:latest 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com/automation-docker:${BUILD_NUMBER}
@@ -21,11 +21,8 @@ pipeline {
       steps {
 		sh '''
 			
-			  ssh -i "deploy.pem" -o StricHostChecking=no ubuntu@ec2-13-250-14-214.ap-southeast-1.compute.amazonaws.com 
-			  aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com
-			  docker pull 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com/automation-docker:${BUILD-NUMBER}
-			  docker run -itd -p 3000:3000 --name newrepo 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com/automation-docker:${BUILD-NUMBER}
-
+			  ssh -i /var/lib/jenkins/.ssh/application.pem -o StricHostChecking=no ubuntu@ec2-13-250-14-214.ap-southeast-1.compute.amazonaws.com 'bash -s' < ./deploy.sh\${BUILD_NUMBER}
+			 
 			  '''	 
 		    
       		}
