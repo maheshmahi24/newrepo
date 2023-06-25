@@ -21,7 +21,7 @@ pipeline {
       steps {
 		sh '''
 			
-		       ssh -i /var/lib/jenkins/.ssh/application.pem -o StricHostChecking=no ubuntu@ec2-13-250-14-214.ap-southeast-1.compute.amazonaws.com 'bash -s' < ./deploy.sh\${BUILD_NUMBER}
+		         ssh -i /var/lib/jenkins/.ssh/application.pem -o StricHostChecking=no ubuntu@ec2-13-250-14-214.ap-southeast-1.compute.amazonaws.com 'bash -s' < ./deploy.sh\${BUILD_NUMBER}
 			 
 			  '''	 
 		    
