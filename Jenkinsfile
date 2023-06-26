@@ -22,7 +22,7 @@ pipeline {
 		sh '''
 			
 
-	         ssh -i /var/lib/jenkins/.ssh/build.pem -o StricHostChecking=no ubuntu@ec2-13-250-35-13.ap-southeast-1.compute.amazonaws.com 'bash -s' < ./deploy.sh\${BUILD_NUMBER}
+	         ssh -i /var/lib/jenkins/.ssh/build.pem -o StrictHostChecking=no ubuntu@ec2-13-250-35-13.ap-southeast-1.compute.amazonaws.com 'bash -s' < ./deploy.sh\${BUILD_NUMBER}
 			 
 			'''	 
 		    
