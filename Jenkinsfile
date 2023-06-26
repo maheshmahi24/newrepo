@@ -6,9 +6,9 @@ pipeline {
       steps {
 		sh '''
 		 whoami
-		 aws configure set aws_access_key_id $ACCESS_KEY
-		 aws configure set aws_secret_access_key $ACCESS_SECRET_KEY
-		 aws configure set default.region ap-southeast-1
+		 #aws configure set aws_access_key_id $ACCESS_KEY
+		 #aws configure set aws_secret_access_key $ACCESS_SECRET_KEY
+		 #aws configure set default.region ap-southeast-1
                  aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com
 		 docker build -t automation-docker .
 		 docker tag automation-docker:latest 092101872227.dkr.ecr.ap-southeast-1.amazonaws.com/automation-docker:${BUILD_NUMBER}
